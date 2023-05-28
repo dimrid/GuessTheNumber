@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,16 +18,14 @@ namespace Guess_the_Number
             Console.WriteLine("You need to guess the number from 0 to 100.");
 
             Console.WriteLine("Who is playing?\nIf human vs. human, enter: 1.\nIf human vs. computer enter: 2.");
-            
+
             int choiseUser;
+
+            string userInput = "";
 
             while (true)
             {
-                string choice = Console.ReadLine();
-                
-                choiseUser = int.Parse(choice);
-
-                switch (choiseUser)
+                switch (GetUserCorrectNumber(userInput))
                 {
                     case 1:
                         PlayerGuesses();
@@ -35,34 +34,10 @@ namespace Guess_the_Number
                         ComputerGuesess();
                         break;
                     default:
-                    Console.WriteLine("You're wrong!");
+                        Console.WriteLine("You're wrong!");
                         break;
                 }
             }
-            switch (choiseUser)
-            {
-                case 1:
-                    Console.WriteLine("Please, PLAYER 1 enter the number:");
-
-                    string player_1 = Console.ReadLine();
-
-                    int playerParse_1 = int.Parse(player_1);
-
-                    Console.WriteLine("I've got your number.");
-
-                    Console.WriteLine("Please, PLAYER 2 enter the number:");
-                    break;
-                case 2:
-                    index = GetNumber();
-                    break;
-                default:
-                    Console.WriteLine("Do not do it!");
-                    break;
-            }
-
-
-
-
             int index = 0;
 
             string player_2 = Console.ReadLine();
@@ -95,16 +70,37 @@ namespace Guess_the_Number
             }
 
         }
+        static int GetUserCorrectNumber(string input)
+            {
+                input = Console.ReadLine();
+
+                int valueTrue = int.Parse(input);
+                
+                
+
+                return valueTrue;
+            }
 
         private static void ComputerGuesess()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Comp");
         }
-
         private static void PlayerGuesses()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Human");
+            Console.WriteLine("Please, PLAYER 1 enter the number:");
+
+            
+
+            string player_1 = Console.ReadLine();
+
+            int playerParse_1 = int.Parse(player_1);
+
+            Console.WriteLine("I've got your number.");
+
+            Console.WriteLine("Please, PLAYER 2 enter the number:");
         }
+
 
         static int GetNumber()
         {
