@@ -9,15 +9,11 @@ using System.Threading.Tasks;
 
 namespace Guess_the_Number
 {
-    internal class Program
+    class Program
     {
-        static void Main()
+        public static void Main()
         {
-            Console.WriteLine("Hello! Let's start playing!");
-
-            Console.WriteLine("You need to guess the number from 0 to 100.");
-
-            Console.WriteLine("Who is playing?\nIf human vs. human, enter: 1.\nIf human vs. computer enter: 2.");
+            GetGreetings();
 
             int choiseUser;
 
@@ -25,16 +21,16 @@ namespace Guess_the_Number
 
             while (true)
             {
-                switch (GetUserCorrectNumber(userInput))
+                switch (GetUserCorrectAnswer(userInput))
                 {
                     case 1:
                         PlayerGuesses();
                         break;
                     case 2:
-                        ComputerGuesess();
+                        ComputerGuesses();
                         break;
                     default:
-                        Console.WriteLine("You're wrong!");
+
                         break;
                 }
             }
@@ -70,18 +66,32 @@ namespace Guess_the_Number
             }
 
         }
-        static int GetUserCorrectNumber(string input)
+
+        private static void GetGreetings()
+        {
+            Console.WriteLine("Hello! Let's start playing!");
+
+            Console.WriteLine("You need to guess the number from 0 to 100.");
+
+            Console.WriteLine("Who is playing?\nIf human vs. human, enter: 1.\nIf human vs. computer enter: 2.");
+        }
+
+        static int GetUserCorrectAnswer(string input)
+        {
+            input = Console.ReadLine();
+
+            if (int.TryParse(input, out int result) && (result == 1 || result == 2))
             {
-                input = Console.ReadLine();
-
-                int valueTrue = int.Parse(input);
-                
-                
-
-                return valueTrue;
+                return result;
             }
+            else
+            {
+                Console.WriteLine("You're wrong! Try again!");
+            }
+            return result;
+        }
 
-        private static void ComputerGuesess()
+        private static void ComputerGuesses()
         {
             Console.WriteLine("Comp");
         }
@@ -90,7 +100,7 @@ namespace Guess_the_Number
             Console.WriteLine("Human");
             Console.WriteLine("Please, PLAYER 1 enter the number:");
 
-            
+
 
             string player_1 = Console.ReadLine();
 
