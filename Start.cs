@@ -11,11 +11,11 @@ namespace Guess_the_Number
 {
     class Start
     {
+        static string userInput = "";
+
         public static void Main()
         {
             GetGreetings(); // The first step is greetings
-
-            string userInput = "";
 
             while (true)
             {
@@ -27,10 +27,14 @@ namespace Guess_the_Number
                     case 2:
                         ComputerGuesses();
                         break;
+                    case 500:
+                        Console.WriteLine("Game over");
+                        break;
                 }
             }
 
         }
+
         private static void GetGreetings()
         {
             Console.WriteLine("Hello! Let's start playing!");
@@ -39,11 +43,16 @@ namespace Guess_the_Number
 
             Console.WriteLine("Who is playing?\nIf human vs. human, enter: 1.\nIf human vs. computer enter: 2.");
         }
+
         static int GetUserCorrectAnswer(string input)
         {
             input = Console.ReadLine();
 
             if (int.TryParse(input, out int result) && (result == 1 || result == 2))
+            {
+                return result;
+            }
+            else if (int.TryParse(input, out result))
             {
                 return result;
             }
@@ -58,15 +67,43 @@ namespace Guess_the_Number
         {
             Console.WriteLine("I guessed a number. Try to guess");
 
+            int userNumber = -1;
+
+            int tries = 0;
+
+            int min = 0;
+
+            int max = 100;
+
+            int maxTries = 5;
+            
             Random rnd = new Random();
 
-            int guessed = rnd.Next(0, 100);
+            int guessed = rnd.Next(min, max);
 
-            int tries = 5;
-
-            while (tries < 5 || guessed == GetUserCorrectAnswer(""))
+            while (tries < maxTries)
             {
-                Console.WriteLine($"MY CONGRATULATIONS!!!! YOU WIN!! My number is {guessed}");
+                userNumber = GetUserCorrectAnswer(userInput);
+
+                if (guessed == userNumber)
+                {
+                    Console.WriteLine($"MY CONGRATULATIONS!!!! YOU WIN!! My number is {guessed}");
+                    break;
+                }
+                else if (guessed < userNumber)
+                {
+                    Console.WriteLine("My number is lower");
+                }
+                else
+                {
+                    Console.WriteLine("My number is above");
+                }
+                tries++;
+            }
+
+            if(tries == 5)
+            {
+                Console.WriteLine($"You lost! My number is {guessed}");
             }
 
         }
