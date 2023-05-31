@@ -16,6 +16,7 @@ namespace Guess_the_Number
             Player,
             Computer
         }
+
         private readonly int maxNumber;
         private readonly int maxTries;
         private readonly WhoGuess whoGuess;
